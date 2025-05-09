@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.min.css">
+
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.js"></script>
+</head>
+<body>
+    <div class="container-fluid p-5">
+        <!-- <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 col-xl-1 bg-info p-4"></div>
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 col-xl-11 bg-warning p-4"></div>
+        </div> -->
+        <div class="row justify-content-center position-relative mt-5">
+            <form class="form p-1 p-md-2 p-lg-3 border rounded col-10 col-md-4 shadow">
+                <div class="title text-primary p-3">
+                    <img src="assets/img/coeur.gif" class="img" alt="" srcset="">
+                </div>
+                <div class="title text-success p-3">
+                    <h5 class="text-center">Connecter à votre compte email</h5>
+                </div>
+                <div class="alert alert-danger alert-dismissible fade show d-none" id="alert" role="alert">
+                    Nom d'utilisateur et/ou mot de passe incorrect. Merci de vouloir réessayer.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <label for="pseudo_id">Email</label>
+                <input type="email" class="form-control mb-3 mt-3" id="pseudo_id" name="pseudo" required><i class="fa fa-email"></i>
+                <label for="mdp_id">Mot de passe</label>
+                <input type="password" class="form-control mb-3 mt-3" id="mdp_id" name="pass" required>
+                <div class="d-flex justify-content-center">
+                    <input type="submit" class="btn btn-outline-primary col-6 shadow" value="SE CONNECTER" name="submite">
+                </div>
+            </form>
+            <div class="p-1 p-md-2 p-lg-3 border rounded col-10 col-md-4 shadow">
+                <h6 class="text-center text-primary">
+                    Site de rencontre en ligne
+                </h6>
+                <img src="assets/img/fleur.gif" class="photo" alt="" srcset="">
+                <p class="text-center p-5">Trouve votre partenaire avec notre site</p>
+            </div>
+            <!-- <div class="d-flex position-absolute h-100 col-10 col-md-4 rounded loading justify-content-center align-items-center d-none" id="loading">
+                <img src="assets/img/loading.gif" alt="loading">
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $('form').submit(function(e){
+                $('#loading').toggleClass('d-none');
+                e.preventDefault();
+                // envoie
+                let donnee = $(this).serialize();
+                $.post(
+                    "actions/login.php",
+                    donnee   
+                ).done(
+                    function(reponse){
+                        // reception retour
+                        $('#loading').toggleClass('d-none');
+                        if (reponse == "succes") {
+                            window.location.href = "index.php";
+                        }
+                        else{ 
+                            $('#alert').toggleClass('d-none');
+                        }
+                         
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+</html>
